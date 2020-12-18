@@ -13,7 +13,7 @@ import com.arno.adapter.widget.varietyadapter.VarietyAdapter
 class UserAdvanceItemProxy : VarietyAdapter.Proxy<User, UserAdvanceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_user_simple, parent, false)
+            .inflate(R.layout.item_user_advance, parent, false)
         return UserAdvanceViewHolder(contentView)
     }
 

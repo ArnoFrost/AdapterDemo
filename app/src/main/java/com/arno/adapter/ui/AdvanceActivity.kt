@@ -16,6 +16,7 @@ import com.arno.adapter.utils.DataUtils
 import com.arno.adapter.utils.setOnItemClickListener
 import com.arno.adapter.widget.varietyadapter.VarietyAdapter
 import kotlinx.coroutines.*
+import kotlin.math.max
 import kotlin.random.Random
 
 class AdvanceActivity : AppCompatActivity() {
@@ -34,7 +35,8 @@ class AdvanceActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        mBinding.addItem.setOnClickListener { addItem() }
+        mBinding.addItem.setOnClickListener { addItem(1) }
+        mBinding.addGroup.setOnClickListener { addItem(3) }
         mBinding.removeItem.setOnClickListener { removeItem() }
         mBinding.randomItem.setOnClickListener { randomItem() }
         //垂直布局
@@ -42,15 +44,17 @@ class AdvanceActivity : AppCompatActivity() {
     }
 
 
-    private fun addItem() {
+    private fun addItem(repeatNum: Int) {
         //添加数据 随机一种数据
-        val index = Random.nextInt(simpleAdapter.dataList.size)
+        val index = Random.nextInt(max(1, simpleAdapter.dataList.lastIndex))
 
         val newList = simpleAdapter.dataList.toMutableList().apply {
-            if (Random.nextBoolean()) {
-                add(index, DataUtils.getRandomUser(true))
-            } else {
-                add(index, DataUtils.getRandomImage(true))
+            repeat(repeatNum) {
+                if (Random.nextBoolean()) {
+                    add(index, DataUtils.getRandomUser(true))
+                } else {
+                    add(index, DataUtils.getRandomImage(true))
+                }
             }
         }
         simpleAdapter.dataList = newList

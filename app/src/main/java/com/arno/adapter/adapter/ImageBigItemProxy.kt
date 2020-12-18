@@ -13,7 +13,7 @@ import com.arno.adapter.widget.varietyadapter.VarietyAdapter
 class ImageBigItemProxy : VarietyAdapter.Proxy<Image, ImageBigViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_image_small, parent, false)
+            .inflate(R.layout.item_image_big, parent, false)
         return ImageBigViewHolder(contentView)
     }
 
