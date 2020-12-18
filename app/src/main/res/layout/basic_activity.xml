@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/addItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加数据"
+            app:layout_constraintEnd_toStartOf="@+id/removeItem"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/randomItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="乱序数据"
+            app:layout_constraintBottom_toBottomOf="@+id/removeItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/removeItem"
+            app:layout_constraintTop_toTopOf="@+id/removeItem"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/removeItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除数据"
+            app:layout_constraintBottom_toBottomOf="@+id/addItem"
+            app:layout_constraintEnd_toStartOf="@+id/randomItem"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/addItem"
+            app:layout_constraintTop_toTopOf="@+id/addItem"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/topGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="addItem,removeItem" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addItem"
+            app:layout_constraintVertical_bias="0.542" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
