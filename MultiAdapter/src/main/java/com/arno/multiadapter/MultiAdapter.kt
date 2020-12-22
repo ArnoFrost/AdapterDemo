@@ -1,11 +1,11 @@
-package com.arno.adapter.widget.varietyadapter
+package com.arno.multiadapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter.Proxy
+import com.arno.multiadapter.MultiAdapter.Proxy
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -41,7 +41,7 @@ import kotlin.math.max
  * recyclerView.adapter = varietyAdapter
  * recyclerView.layoutManager = LinearLayoutManager(context)
  */
-class VarietyAdapter(
+class MultiAdapter(
     /**
      * the list of [Proxy]
      */

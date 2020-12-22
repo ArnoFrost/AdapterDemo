@@ -2,8 +2,8 @@ package com.arno.adapter.bean
 
 import com.arno.adapter.adapter.UserAdvanceItemProxy
 import com.arno.adapter.adapter.UserSimpleItemProxy
-import com.arno.adapter.widget.varietyadapter.Diff
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.Diff
+import com.arno.multiadapter.MultiAdapter
 import java.io.Serializable
 
 /**
@@ -19,7 +19,7 @@ data class User(
     var age: Int,
     var type: Int,
     var color: Int
-) : Serializable, Diff, VarietyAdapter.DataProxyMap {
+) : Serializable, Diff, MultiAdapter.DataProxyMap {
     override fun hashCode(): Int = this.id.hashCode()
     override fun equals(other: Any?): Boolean = (other as? User)?.name == this.name
     override fun diff(other: Any?): Any? {

@@ -13,8 +13,7 @@ import com.arno.adapter.adapter.UserAdvanceItemProxy
 import com.arno.adapter.adapter.UserSimpleItemProxy
 import com.arno.adapter.databinding.AdvanceActivityBinding
 import com.arno.adapter.utils.DataUtils
-import com.arno.adapter.utils.setOnItemClickListener
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.utils.setOnItemClickListener
 import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.random.Random
@@ -23,7 +22,7 @@ class AdvanceActivity : AppCompatActivity() {
 
     private lateinit var mBinding: AdvanceActivityBinding
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var simpleAdapter: VarietyAdapter
+    private lateinit var simpleAdapter: com.arno.multiadapter.MultiAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +89,7 @@ class AdvanceActivity : AppCompatActivity() {
 
     private fun initData() {
         //初始化Adapter数据
-        simpleAdapter = VarietyAdapter().apply {
+        simpleAdapter = com.arno.multiadapter.MultiAdapter().apply {
             //1. 添加VH项目 多种
             addProxy(UserSimpleItemProxy())
             addProxy(UserAdvanceItemProxy())

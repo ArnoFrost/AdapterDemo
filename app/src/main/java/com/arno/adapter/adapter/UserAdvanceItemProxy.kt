@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.arno.adapter.R
 import com.arno.adapter.bean.User
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.MultiAdapter
 
-class UserAdvanceItemProxy : VarietyAdapter.Proxy<User, UserAdvanceViewHolder>() {
+class UserAdvanceItemProxy : MultiAdapter.Proxy<User, UserAdvanceViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user_advance, parent, false)

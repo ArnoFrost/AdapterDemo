@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.arno.adapter.R
 import com.arno.adapter.bean.Image
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.MultiAdapter
 
-class ImageSmallItemProxy : VarietyAdapter.Proxy<Image, ImageSmallViewHolder>() {
+class ImageSmallItemProxy : MultiAdapter.Proxy<Image, ImageSmallViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_image_small, parent, false)

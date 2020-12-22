@@ -1,4 +1,4 @@
-package com.arno.adapter.widget.varietyadapter
+package com.arno.multiadapter
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
