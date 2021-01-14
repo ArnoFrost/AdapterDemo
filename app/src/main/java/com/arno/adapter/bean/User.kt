@@ -1,7 +1,7 @@
 package com.arno.adapter.bean
 
-import com.arno.adapter.adapter.UserAdvanceItemProxy
-import com.arno.adapter.adapter.UserSimpleItemProxy
+import com.arno.adapter.adapter.UserAdvanceItemAdapterProxy
+import com.arno.adapter.adapter.UserSimpleItemAdapterProxy
 import com.arno.multiadapter.Diff
 import com.arno.multiadapter.MultiAdapter
 import java.io.Serializable
@@ -34,8 +34,8 @@ data class User(
 
     override fun toProxy(): String {
         return when (type) {
-            1 -> UserSimpleItemProxy::class.java.toString()
-            else -> UserAdvanceItemProxy::class.java.toString()
+            1 -> UserSimpleItemAdapterProxy::class.java.toString()
+            else -> UserAdvanceItemAdapterProxy::class.java.toString()
         }
     }
 }

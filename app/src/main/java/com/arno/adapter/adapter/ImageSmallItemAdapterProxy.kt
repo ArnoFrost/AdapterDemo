@@ -10,14 +10,14 @@ import com.arno.adapter.R
 import com.arno.adapter.bean.Image
 import com.arno.multiadapter.MultiAdapter
 
-class ImageSmallItemProxy : MultiAdapter.Proxy<Image, ImageSmallViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+class ImageSmallItemAdapterProxy : MultiAdapter.AdapterProxy<Image, ImageSmallViewHolder>() {
+    override fun onProxyCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_image_small, parent, false)
         return ImageSmallViewHolder(contentView)
     }
 
-    override fun onBindViewHolder(
+    override fun onProxyBindViewHolder(
         holderSmall: ImageSmallViewHolder,
         data: Image,
         index: Int,

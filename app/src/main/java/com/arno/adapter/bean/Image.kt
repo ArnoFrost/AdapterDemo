@@ -1,7 +1,7 @@
 package com.arno.adapter.bean
 
-import com.arno.adapter.adapter.ImageBigItemProxy
-import com.arno.adapter.adapter.ImageSmallItemProxy
+import com.arno.adapter.adapter.ImageBigItemAdapterProxy
+import com.arno.adapter.adapter.ImageSmallItemAdapterProxy
 import com.arno.multiadapter.Diff
 import java.io.Serializable
 
@@ -32,8 +32,8 @@ data class Image(
 
     override fun toProxy(): String {
         return when (type) {
-            1 -> ImageBigItemProxy::class.java.toString()
-            else -> ImageSmallItemProxy::class.java.toString()
+            1 -> ImageBigItemAdapterProxy::class.java.toString()
+            else -> ImageSmallItemAdapterProxy::class.java.toString()
         }
     }
 }

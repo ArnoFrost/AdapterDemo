@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arno.adapter.R
-import com.arno.adapter.adapter.UserSimpleItemProxy
+import com.arno.adapter.adapter.UserSimpleItemAdapterProxy
 import com.arno.adapter.databinding.BasicActivityBinding
 import com.arno.adapter.utils.DataUtils
 import com.arno.multiadapter.MultiAdapter
@@ -80,7 +80,7 @@ class BasicActivity : AppCompatActivity() {
 //            setHasStableIds(true)
 
             //1. 添加项目
-            addProxy(UserSimpleItemProxy())
+            addProxy(UserSimpleItemAdapterProxy())
             //2. 初始化数据
             dataList = listOf(
                 DataUtils.getRandomUser(false),

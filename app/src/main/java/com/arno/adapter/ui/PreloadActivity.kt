@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arno.adapter.R
-import com.arno.adapter.adapter.UserAdvanceItemProxy
-import com.arno.adapter.adapter.UserSimpleItemProxy
+import com.arno.adapter.adapter.UserAdvanceItemAdapterProxy
+import com.arno.adapter.adapter.UserSimpleItemAdapterProxy
 import com.arno.adapter.databinding.PreloadActivityBinding
 import com.arno.adapter.utils.DataUtils
 import com.arno.multiadapter.MultiAdapter
@@ -82,8 +82,8 @@ class PreloadActivity : AppCompatActivity() {
 //            setHasStableIds(true)
 
             //1. 添加项目
-            addProxy(UserSimpleItemProxy())
-            addProxy(UserAdvanceItemProxy())
+            addProxy(UserSimpleItemAdapterProxy())
+            addProxy(UserAdvanceItemAdapterProxy())
             //2. 初始化数据
             dataList = listOf(
                 DataUtils.getRandomUser(true),

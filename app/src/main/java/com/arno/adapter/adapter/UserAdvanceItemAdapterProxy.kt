@@ -10,14 +10,14 @@ import com.arno.adapter.R
 import com.arno.adapter.bean.User
 import com.arno.multiadapter.MultiAdapter
 
-class UserAdvanceItemProxy : MultiAdapter.Proxy<User, UserAdvanceViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+class UserAdvanceItemAdapterProxy : MultiAdapter.AdapterProxy<User, UserAdvanceViewHolder>() {
+    override fun onProxyCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user_advance, parent, false)
         return UserAdvanceViewHolder(contentView)
     }
 
-    override fun onBindViewHolder(
+    override fun onProxyBindViewHolder(
         holderSimple: UserAdvanceViewHolder,
         data: User,
         index: Int,

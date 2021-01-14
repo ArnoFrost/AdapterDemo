@@ -1,19 +1,22 @@
 package com.arno.adapter.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arno.adapter.R
-import com.arno.adapter.adapter.ImageBigItemProxy
-import com.arno.adapter.adapter.ImageSmallItemProxy
-import com.arno.adapter.adapter.UserAdvanceItemProxy
-import com.arno.adapter.adapter.UserSimpleItemProxy
+import com.arno.adapter.adapter.ImageBigItemAdapterProxy
+import com.arno.adapter.adapter.ImageSmallItemAdapterProxy
+import com.arno.adapter.adapter.UserAdvanceItemAdapterProxy
+import com.arno.adapter.adapter.UserSimpleItemAdapterProxy
 import com.arno.adapter.databinding.AdvanceActivityBinding
 import com.arno.adapter.utils.DataUtils
+import com.arno.multiadapter.utils.onChildViewClick
 import com.arno.multiadapter.utils.setOnItemClickListener
+import com.arno.multiadapter.utils.setOnItemClickListener2
 import kotlinx.coroutines.*
 import kotlin.math.max
 import kotlin.random.Random
@@ -91,10 +94,10 @@ class AdvanceActivity : AppCompatActivity() {
         //初始化Adapter数据
         simpleAdapter = com.arno.multiadapter.MultiAdapter().apply {
             //1. 添加VH项目 多种
-            addProxy(UserSimpleItemProxy())
-            addProxy(UserAdvanceItemProxy())
-            addProxy(ImageSmallItemProxy())
-            addProxy(ImageBigItemProxy())
+            addProxy(UserSimpleItemAdapterProxy())
+            addProxy(UserAdvanceItemAdapterProxy())
+            addProxy(ImageSmallItemAdapterProxy())
+            addProxy(ImageBigItemAdapterProxy())
 
             //2. 初始化数据
             dataList = listOf(
@@ -107,8 +110,21 @@ class AdvanceActivity : AppCompatActivity() {
 
         //设置Rv相关属性
         mBinding.rvList.apply {
+
             //设置点击方法
-            setOnItemClickListener { item, adapterPosition ->
+            setOnItemClickListener2 { view, adapterPosition, x, y ->
+                Log.d(
+                    TAG,
+                    "setOnItemClickListener2 called with: view = $view, adapterPosition = $adapterPosition, x = $x, y = $y"
+                )
+                view.onChildViewClick("image", x = x, y = y) {
+                    Toast.makeText(
+                        this@AdvanceActivity,
+                        "点击了图片",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
                 Toast.makeText(
                     this@AdvanceActivity,
                     "adapterPosition $adapterPosition",
