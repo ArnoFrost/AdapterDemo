@@ -1,18 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.arno.adapter"
+        compileSdk 33
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 33
+
         versionCode 1
         versionName "1.0"
 
@@ -28,6 +27,9 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -38,7 +40,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    
+
     //ktx相关
     //core
     implementation "androidx.collection:collection-ktx:1.2.0"
