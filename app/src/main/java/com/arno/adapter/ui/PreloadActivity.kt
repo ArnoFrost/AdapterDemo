@@ -8,19 +8,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arno.adapter.R
-import com.arno.adapter.adapter.UserAdvanceItemProxy
-import com.arno.adapter.adapter.UserSimpleItemProxy
+import com.arno.adapter.adapter.UserAdvanceItemAdapterProxy
+import com.arno.adapter.adapter.UserSimpleItemAdapterProxy
 import com.arno.adapter.databinding.PreloadActivityBinding
 import com.arno.adapter.utils.DataUtils
-import com.arno.adapter.utils.setOnItemClickListener
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.MultiAdapter
+import com.arno.multiadapter.utils.setOnItemClickListener
 import kotlinx.coroutines.*
 
 class PreloadActivity : AppCompatActivity() {
 
     private lateinit var mBinding: PreloadActivityBinding
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var simpleAdapter: VarietyAdapter
+    private lateinit var simpleAdapter: MultiAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class PreloadActivity : AppCompatActivity() {
 
     private fun initData() {
         //初始化Adapter数据
-        simpleAdapter = VarietyAdapter().apply {
+        simpleAdapter = MultiAdapter().apply {
             /**
              *  优化添加至一级缓存 注意要覆写[RecyclerView.Adapter.getItemId]
              *  理论上由于增加了一层可用过id查找ViewHolder所以增加了缓存的命中率 提升性能
@@ -82,8 +82,8 @@ class PreloadActivity : AppCompatActivity() {
 //            setHasStableIds(true)
 
             //1. 添加项目
-            addProxy(UserSimpleItemProxy())
-            addProxy(UserAdvanceItemProxy())
+            addProxy(UserSimpleItemAdapterProxy())
+            addProxy(UserAdvanceItemAdapterProxy())
             //2. 初始化数据
             dataList = listOf(
                 DataUtils.getRandomUser(true),

@@ -1,11 +1,11 @@
-package com.arno.adapter.widget.varietyadapter
+package com.arno.multiadapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter.Proxy
+import com.arno.multiadapter.MultiAdapter.AdapterProxy
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -41,11 +41,11 @@ import kotlin.math.max
  * recyclerView.adapter = varietyAdapter
  * recyclerView.layoutManager = LinearLayoutManager(context)
  */
-class VarietyAdapter(
+class MultiAdapter(
     /**
-     * the list of [Proxy]
+     * the list of [AdapterProxy]
      */
-    private var proxyList: MutableList<Proxy<*, *>> = mutableListOf(),
+    private var adapterProxyList: MutableList<AdapterProxy<*, *>> = mutableListOf(),
     /**
      * the dispatcher used by [dataDiffer]
      */
@@ -82,15 +82,15 @@ class VarietyAdapter(
     /**
      * add a new type of item for RecyclerView
      */
-    fun <T, VH : ViewHolder> addProxy(proxy: Proxy<T, VH>) {
-        proxyList.add(proxy)
+    fun <T, VH : ViewHolder> addProxy(adapterProxy: AdapterProxy<T, VH>) {
+        adapterProxyList.add(adapterProxy)
     }
 
     /**
      * remove a type of item for RecyclerView
      */
-    fun <T, VH : ViewHolder> removeProxy(proxy: Proxy<T, VH>) {
-        proxyList.remove(proxy)
+    fun <T, VH : ViewHolder> removeProxy(adapterProxy: AdapterProxy<T, VH>) {
+        adapterProxyList.remove(adapterProxy)
     }
 
     /**
@@ -106,12 +106,12 @@ class VarietyAdapter(
     var onViewRecycled: ((holder: ViewHolder) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return proxyList[viewType].onCreateViewHolder(parent, viewType)
+        return adapterProxyList[viewType].onProxyCreateViewHolder(parent, viewType)
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        (proxyList[getItemViewType(position)] as Proxy<Any, ViewHolder>).onBindViewHolder(
+        (adapterProxyList[getItemViewType(position)] as AdapterProxy<Any, ViewHolder>).onProxyBindViewHolder(
             holder,
             dataList[position],
             position,
@@ -122,7 +122,7 @@ class VarietyAdapter(
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
-        (proxyList[getItemViewType(position)] as Proxy<Any, ViewHolder>).onBindViewHolder(
+        (adapterProxyList[getItemViewType(position)] as AdapterProxy<Any, ViewHolder>).onProxyBindViewHolder(
             holder,
             dataList[position],
             position,
@@ -174,6 +174,7 @@ class VarietyAdapter(
 
     /**
      * check if preload threshold is satisfied
+     * 检查预载机制
      */
     private fun checkPreload(position: Int) {
         if (onPreload != null
@@ -188,39 +189,42 @@ class VarietyAdapter(
     }
 
     /**
-     * find the index of [Proxy] according to the [data] in the [proxyList]
+     * find the index of [AdapterProxy] according to the [data] in the [adapterProxyList]
+     * 根据数据找到对应代理Adapter的类型
      */
-    private fun getProxyIndex(data: Any): Int = proxyList.indexOfFirst {
+    private fun getProxyIndex(data: Any): Int = adapterProxyList.indexOfFirst {
         val firstTypeParamClassName =
             (it.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0].toString()
         val proxyClassName = it.javaClass.toString()
+        //首要匹配条件：代理类第一个类型参数和数据类型相同
         firstTypeParamClassName == data.javaClass.toString() // primary condition:if the first type parameter of AdapterProxy is the same as the data, it means the accordingly AdapterProxy found
+                // 次要匹配条件：数据类自定义匹配代理名和当前代理名相同
                 && (data as? DataProxyMap)?.toProxy() ?: proxyClassName == proxyClassName // secondary condition: match data to proxy mapping relation defined by the data
     }
 
     /**
      * the proxy of [RecyclerView.Adapter], which has the similar function to it.
-     * the business layer implements [Proxy] to define how does the item look like
+     * the business layer implements [AdapterProxy] to define how does the item look like
      */
-    abstract class Proxy<T, VH : ViewHolder> {
+    abstract class AdapterProxy<T, VH : ViewHolder> {
 
-        abstract fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
+        abstract fun onProxyCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
 
-        abstract fun onBindViewHolder(
+        abstract fun onProxyBindViewHolder(
             holder: VH,
             data: T,
             index: Int,
             action: ((Any?) -> Unit)? = null
         )
 
-        open fun onBindViewHolder(
+        open fun onProxyBindViewHolder(
             holder: VH,
             data: T,
             index: Int,
             action: ((Any?) -> Unit)? = null,
             payloads: MutableList<Any>
         ) {
-            onBindViewHolder(holder, data, index, action)
+            onProxyBindViewHolder(holder, data, index, action)
         }
     }
 

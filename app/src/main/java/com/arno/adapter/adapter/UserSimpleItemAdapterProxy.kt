@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.arno.adapter.R
 import com.arno.adapter.bean.User
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.multiadapter.MultiAdapter
 
-class UserSimpleItemProxy : VarietyAdapter.Proxy<User, UserSimpleViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+class UserSimpleItemAdapterProxy : MultiAdapter.AdapterProxy<User, UserSimpleViewHolder>() {
+    override fun onProxyCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val contentView = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user_simple, parent, false)
         return UserSimpleViewHolder(contentView)
     }
 
-    override fun onBindViewHolder(
+    override fun onProxyBindViewHolder(
         holderSimple: UserSimpleViewHolder,
         data: User,
         index: Int,

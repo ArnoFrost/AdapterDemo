@@ -1,9 +1,8 @@
 package com.arno.adapter.bean
 
-import com.arno.adapter.adapter.ImageBigItemProxy
-import com.arno.adapter.adapter.ImageSmallItemProxy
-import com.arno.adapter.widget.varietyadapter.Diff
-import com.arno.adapter.widget.varietyadapter.VarietyAdapter
+import com.arno.adapter.adapter.ImageBigItemAdapterProxy
+import com.arno.adapter.adapter.ImageSmallItemAdapterProxy
+import com.arno.multiadapter.Diff
 import java.io.Serializable
 
 /**
@@ -18,7 +17,7 @@ data class Image(
     var id: String,
     var type: Int,
     var color: Int
-) : Serializable, Diff, VarietyAdapter.DataProxyMap {
+) : Serializable, Diff, com.arno.multiadapter.MultiAdapter.DataProxyMap {
     override fun hashCode(): Int = this.id.hashCode()
     override fun equals(other: Any?): Boolean = (other as? Image)?.name == this.name
     override fun diff(other: Any?): Any? {
@@ -33,8 +32,8 @@ data class Image(
 
     override fun toProxy(): String {
         return when (type) {
-            1 -> ImageBigItemProxy::class.java.toString()
-            else -> ImageSmallItemProxy::class.java.toString()
+            1 -> ImageBigItemAdapterProxy::class.java.toString()
+            else -> ImageSmallItemAdapterProxy::class.java.toString()
         }
     }
 }
